@@ -49,6 +49,15 @@ namespace GestionInventario
             }
         }
 
+      
+
+        public IEnumerable<Producto> FiltrarYOrdenarProductos(decimal precioMinimo)
+        {
+            return productos
+                .Where(p => p.Precio > precioMinimo) //Filtra productos con precio mayor al minimo especificado
+                .OrderBy(p => p.Precio); //Ordena los productos de mayor a menor
+        }
+
         public void ContarYAgruparProductos()
         {
             var grupos = productos.GroupBy(p =>
@@ -62,13 +71,6 @@ namespace GestionInventario
             {
                 Console.WriteLine($"\n{grupo.Key}: {grupo.Count()} productos");
             }
-        }
-
-        public IEnumerable<Producto> FiltrarYORdenarProductos(decimal precioMinimo)
-        {
-            return productos
-                .Where(p => p.Precio > precioMinimo) //Filtra productos con precio mayor al minimo especificado
-                .OrderBy(p => p.Precio); //Ordena los productos de mayor a menor
         }
 
 
