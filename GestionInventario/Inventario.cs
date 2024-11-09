@@ -49,6 +49,21 @@ namespace GestionInventario
             }
         }
 
+        public void ContarYAgruparProductos()
+        {
+            var grupos = productos.GroupBy(p =>
+            {
+                if (p.Precio < 100) return "Menores a 100";
+                if (p.Precio <= 500) return "Entre 100 y 500";
+                return "Mayores a 500";
+            });
+
+            foreach (var grupo in grupos)
+            {
+                Console.WriteLine($"\n{grupo.Key}: {grupo.Count()} productos");
+            }
+        }
+
         public IEnumerable<Producto> FiltrarYORdenarProductos(decimal precioMinimo)
         {
             return productos
