@@ -10,6 +10,7 @@ namespace GestionInventario
             Inventario inventario = new Inventario();
             Console.WriteLine("¡Hola! ¡Sea bienvenido al sistema de gestión de inventario!");
 
+
             bool continuar = true;
             bool hayProductos = false;
 
@@ -95,17 +96,25 @@ namespace GestionInventario
                             string opcionActualizar;
                             do
                             {
-                                Console.Write("\n¿Desea actualizar el precio de un producto? (s/n): ");
-                                opcionActualizar = Console.ReadLine().ToLower();
+                                do
+                                {
+                                    Console.Write("\n¿Desea actualizar el precio de un producto? (s/n): ");
+                                    opcionActualizar = Console.ReadLine().ToLower();
+                                    if (opcionActualizar != "s" && opcionActualizar != "n")
+                                    {
+                                        Console.WriteLine("Opcion invalida. Por favor ingrese 's' para sí o 'n' para no.");
+                                    }
+                                } while (opcionActualizar != "s" && opcionActualizar != "n");
+
                                 if (opcionActualizar == "s")
                                 {
-                                    Console.Write("Ingrese el nombre del producto a actualizar: ");
+                                    Console.Write("Por favor, ingrese el nombre del producto a actualizar: ");
                                     string nombreActualizar = Console.ReadLine();
-                                    Console.Write("Ingrese el nuevo precio: ");
+                                    Console.Write("Ahora ingrese el nuevo precio: ");
                                     decimal nuevoPrecio;
                                     while (!decimal.TryParse(Console.ReadLine(), out nuevoPrecio) || nuevoPrecio <= 0)
                                     {
-                                        Console.Write("¡HEY! ¡ERROR! Precio invalido. Por favor, ingrese un precio positivo: ");
+                                        Console.Write("Precio invalido. Por favor, ingrese un precio positivo: ");
                                     }
                                     inventario.ActualizarPrecio(nombreActualizar, nuevoPrecio);
                                 }
@@ -123,11 +132,19 @@ namespace GestionInventario
                             string opcionEliminar;
                             do
                             {
-                                Console.Write("\n¿Desea eliminar un producto? (s/n): ");
-                                opcionEliminar = Console.ReadLine().ToLower();
+                                do
+                                {
+                                    Console.Write("\n¿Desea eliminar un producto? (s/n): ");
+                                    opcionEliminar = Console.ReadLine().ToLower();
+                                    if (opcionEliminar != "s" && opcionEliminar != "n")
+                                    {
+                                        Console.WriteLine("Opción inválida. Por favor ingrese 's' para sí o 'n' para no.");
+                                    }
+                                } while (opcionEliminar != "s" && opcionEliminar != "n");
+
                                 if (opcionEliminar == "s")
                                 {
-                                    Console.Write("Favor, Ingrese el nombre del producto a eliminar: ");
+                                    Console.Write("Ingrese el nombre del producto a eliminar: ");
                                     string nombreEliminar = Console.ReadLine();
                                     inventario.EliminarProducto(nombreEliminar);
                                 }
