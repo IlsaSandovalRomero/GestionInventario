@@ -33,7 +33,21 @@ namespace GestionInventario
             {
                 Console.WriteLine("Producto no encontrado.");
             }
-        }S
+        }
+
+        public void EliminarProducto(string nombre)
+        {
+            var producto = productos.FirstOrDefault(p => p.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase));
+            if (producto != null)
+            {
+                productos.Remove(producto);
+                Console.WriteLine($"Producto '{nombre}' eliminado del inventario.");
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado.");
+            }
+        }
 
         public IEnumerable<Producto> FiltrarYORdenarProductos(decimal precioMinimo)
         {
