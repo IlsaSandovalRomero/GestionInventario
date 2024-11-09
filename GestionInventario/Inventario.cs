@@ -70,6 +70,28 @@ namespace GestionInventario
                 .Where(p => p.Precio > precioMinimo) //Filtra productos con precio mayor al minimo especificado
                 .OrderBy(p => p.Precio); //Ordena los productos de mayor a menor
         }
+
+
+        public void GenerarReporte()
+        {
+            if (productos.Any())
+            {
+                int totalProductos = productos.Count;
+                decimal precioPromedio = productos.Average(p => p.Precio);
+                var productoMasCaro = productos.OrderByDescending(p => p.Precio).First();
+                var productoMasBarato = productos.OrderBy(p => p.Precio).First();
+
+                Console.WriteLine("\n--- Reporte de Inventario ---");
+                Console.WriteLine($"Total de productos: {totalProductos}");
+                Console.WriteLine($"Precio promedio: {precioPromedio:C}");
+                Console.WriteLine($"Producto más caro: {productoMasCaro.Nombre} - Precio: {productoMasCaro.Precio:C}");
+                Console.WriteLine($"Producto más barato: {productoMasBarato.Nombre} - Precio: {productoMasBarato.Precio:C}");
+            }
+            else
+            {
+                Console.WriteLine("No hay productos en el inventario para generar un reporte.");
+            }
+        }
     }
 }
 
