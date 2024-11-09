@@ -22,5 +22,6 @@ namespace GestionInventario
             Console.WriteLine($"Producto: {Nombre}, Precio: {Precio:C}");
         }
 
+
     }
 }
