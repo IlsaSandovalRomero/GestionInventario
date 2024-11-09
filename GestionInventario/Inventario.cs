@@ -83,7 +83,7 @@ namespace GestionInventario
                 var productoMasCaro = productos.OrderByDescending(p => p.Precio).First();
                 var productoMasBarato = productos.OrderBy(p => p.Precio).First();
 
-                Console.WriteLine("\n--- Reporte de Inventario ---");
+                Console.WriteLine("\n     Reporte de Inventario  ");
                 Console.WriteLine($"Total de productos: {totalProductos}");
                 Console.WriteLine($"Precio promedio: {precioPromedio:C}");
                 Console.WriteLine($"Producto más caro: {productoMasCaro.Nombre} - Precio: {productoMasCaro.Precio:C}");
