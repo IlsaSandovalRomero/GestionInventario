@@ -45,6 +45,15 @@ namespace GestionInventario
                 {
                     Console.Write("Precio mínimo inválido. Ingrese un valor positivo: ");
                 }
+
+                var productosFiltrados = inventario.FiltrarYOrdenarProductos(precioMinimo);
+
+                Console.WriteLine("\nProductos filtrados y ordenados:");
+                foreach (var producto in productosFiltrados)
+                {
+                    producto.MostrarInformacion();
+                }
+
             }
             else
             {
