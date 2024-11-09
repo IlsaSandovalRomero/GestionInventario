@@ -22,6 +22,7 @@ namespace GestionInventario
                 Console.WriteLine("  5- Contar y agrupar productos por rango de precio.");
                 Console.WriteLine("  6- Generar un reporte del inventario");
                 Console.WriteLine("  7- Salir del sistema.");
+                Console.WriteLine();
 
                 Console.Write("\nPor favor, ingrese la opcion de su preferencia: ");
                 string opcion = Console.ReadLine();
