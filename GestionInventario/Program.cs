@@ -66,9 +66,17 @@ namespace GestionInventario
                         Console.Write("Precio inválido. Ingrese un precio positivo: ");
                     }
                     inventario.ActualizarPrecio(nombreActualizar, nuevoPrecio);
-                } 
+                }
 
-               
+                Console.Write("\n¿Desea eliminar un producto? (s/n): ");
+                if (Console.ReadLine().ToLower() == "s")
+                {
+                    Console.Write("Ingrese el nombre del producto a eliminar: ");
+                    string nombreEliminar = Console.ReadLine();
+                    inventario.EliminarProducto(nombreEliminar);
+                }
+
+                
             }
             else
             {
