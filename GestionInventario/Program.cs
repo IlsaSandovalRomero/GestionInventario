@@ -54,6 +54,21 @@ namespace GestionInventario
                     producto.MostrarInformacion();
                 }
 
+                Console.Write("\n¿Desea actualizar el precio de un producto? (s/n): ");
+                if (Console.ReadLine().ToLower() == "s")
+                {
+                    Console.Write("Ingrese el nombre del producto a actualizar: ");
+                    string nombreActualizar = Console.ReadLine();
+                    Console.Write("Ingrese el nuevo precio: ");
+                    decimal nuevoPrecio;
+                    while (!decimal.TryParse(Console.ReadLine(), out nuevoPrecio) || nuevoPrecio <= 0)
+                    {
+                        Console.Write("Precio inválido. Ingrese un precio positivo: ");
+                    }
+                    inventario.ActualizarPrecio(nombreActualizar, nuevoPrecio);
+                } 
+
+               
             }
             else
             {
