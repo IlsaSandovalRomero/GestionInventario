@@ -20,6 +20,21 @@ namespace GestionInventario
             productos.Add(producto);
         }
 
+
+        public void ActualizarPrecio(string nombre, decimal nuevoPrecio)
+        {
+            var producto = productos.FirstOrDefault(p => p.Nombre.Equals(nombre, StringComparison.OrdinalIgnoreCase));
+            if (producto != null)
+            {
+                producto.Precio = nuevoPrecio;
+                Console.WriteLine($"El precio del producto '{nombre}' ha sido actualizado a {nuevoPrecio:C}");
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado.");
+            }
+        }S
+
         public IEnumerable<Producto> FiltrarYORdenarProductos(decimal precioMinimo)
         {
             return productos
