@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace GestionInventario
 {
-    internal class Inventario
+    public class Inventario
     {
+        private List<Producto> productos;
+
+        public Inventario()
+        {
+            productos = new List<Producto>();
+        }
+
+        public void AgregarProducto(Producto producto)
+        {
+            productos.Add(producto);
+        }
+
+        public IEnumerable<Producto> FiltrarYORdenarProductos(decimal precioMinimo)
+        {
+            return productos
+                .Where(p => p.Precio > precioMinimo) //Filtra productos con precio mayor al minimo especificado
+                .OrderBy(p => p.Precio); //Ordena los productos de mayor a menor
+        }
     }
 }
