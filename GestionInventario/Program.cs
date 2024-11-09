@@ -49,7 +49,7 @@ namespace GestionInventario
             decimal precioMinimo;
             while (!decimal.TryParse(Console.ReadLine(), out precioMinimo) || precioMinimo < 0)
             {
-                Console.Write("Precio mínimo inválido. Ingrese un valor positivo: ");
+                Console.Write("Precio mínimo inválido. Por favor, ingrese un valor positivo: ");
             }
 
             var productosFiltrados = inventario.FiltrarYOrdenarProductos(precioMinimo);
@@ -69,7 +69,7 @@ namespace GestionInventario
                     opcionActualizar = Console.ReadLine().ToLower();
                     if (opcionActualizar != "s" && opcionActualizar != "n")
                     {
-                        Console.WriteLine("Opción inválida. Por favor ingrese 's' para sí o 'n' para no.");
+                        Console.WriteLine("Opción inválida. Por favor, ingrese 's' para sí o 'n' para no.");
                     }
                 } while (opcionActualizar != "s" && opcionActualizar != "n");
 
@@ -81,7 +81,7 @@ namespace GestionInventario
                     decimal nuevoPrecio;
                     while (!decimal.TryParse(Console.ReadLine(), out nuevoPrecio) || nuevoPrecio <= 0)
                     {
-                        Console.Write("Precio inválido. Ingrese un precio positivo: ");
+                        Console.Write("Precio inválido.Por favor, ingrese un precio positivo: ");
                     }
                     inventario.ActualizarPrecio(nombreActualizar, nuevoPrecio);
                 }
@@ -96,7 +96,7 @@ namespace GestionInventario
                     opcionEliminar = Console.ReadLine().ToLower();
                     if (opcionEliminar != "s" && opcionEliminar != "n")
                     {
-                        Console.WriteLine("Opción inválida. Por favor ingrese 's' para sí o 'n' para no.");
+                        Console.WriteLine("Opción inválida. Por favor, ingrese 's' para sí o 'n' para no.");
                     }
                 } while (opcionEliminar != "s" && opcionEliminar != "n");
 
@@ -108,14 +108,6 @@ namespace GestionInventario
                 }
             } while (opcionEliminar == "s");
 
-
-            Console.Write("\n¿Desea eliminar un producto? (s/n): ");
-            if (Console.ReadLine().ToLower() == "s")
-            {
-                Console.Write("Ingrese el nombre del producto a eliminar: ");
-                string nombreEliminar = Console.ReadLine();
-                inventario.EliminarProducto(nombreEliminar);
-            }
 
             Console.WriteLine("\nConteo y agrupación de productos por rango de precio:");
             inventario.ContarYAgruparProductos();
