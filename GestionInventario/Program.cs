@@ -60,19 +60,54 @@ namespace GestionInventario
                 producto.MostrarInformacion();
             }
 
-            Console.Write("\n¿Desea actualizar el precio de un producto? (s/n): ");
-            if (Console.ReadLine().ToLower() == "s")
+            string opcionActualizar;
+            do
             {
-                Console.Write("Ingrese el nombre del producto a actualizar: ");
-                string nombreActualizar = Console.ReadLine();
-                Console.Write("Ingrese el nuevo precio: ");
-                decimal nuevoPrecio;
-                while (!decimal.TryParse(Console.ReadLine(), out nuevoPrecio) || nuevoPrecio <= 0)
+                do
                 {
-                    Console.Write("Precio inválido. Ingrese un precio positivo: ");
+                    Console.Write("\n¿Desea actualizar el precio de un producto? (s/n): ");
+                    opcionActualizar = Console.ReadLine().ToLower();
+                    if (opcionActualizar != "s" && opcionActualizar != "n")
+                    {
+                        Console.WriteLine("Opción inválida. Por favor ingrese 's' para sí o 'n' para no.");
+                    }
+                } while (opcionActualizar != "s" && opcionActualizar != "n");
+
+                if (opcionActualizar == "s")
+                {
+                    Console.Write("Ingrese el nombre del producto a actualizar: ");
+                    string nombreActualizar = Console.ReadLine();
+                    Console.Write("Ingrese el nuevo precio: ");
+                    decimal nuevoPrecio;
+                    while (!decimal.TryParse(Console.ReadLine(), out nuevoPrecio) || nuevoPrecio <= 0)
+                    {
+                        Console.Write("Precio inválido. Ingrese un precio positivo: ");
+                    }
+                    inventario.ActualizarPrecio(nombreActualizar, nuevoPrecio);
                 }
-                inventario.ActualizarPrecio(nombreActualizar, nuevoPrecio);
-            }
+            } while (opcionActualizar == "s");
+
+            string opcionEliminar;
+            do
+            {
+                do
+                {
+                    Console.Write("\n¿Desea eliminar un producto? (s/n): ");
+                    opcionEliminar = Console.ReadLine().ToLower();
+                    if (opcionEliminar != "s" && opcionEliminar != "n")
+                    {
+                        Console.WriteLine("Opción inválida. Por favor ingrese 's' para sí o 'n' para no.");
+                    }
+                } while (opcionEliminar != "s" && opcionEliminar != "n");
+
+                if (opcionEliminar == "s")
+                {
+                    Console.Write("Ingrese el nombre del producto a eliminar: ");
+                    string nombreEliminar = Console.ReadLine();
+                    inventario.EliminarProducto(nombreEliminar);
+                }
+            } while (opcionEliminar == "s");
+
 
             Console.Write("\n¿Desea eliminar un producto? (s/n): ");
             if (Console.ReadLine().ToLower() == "s")
