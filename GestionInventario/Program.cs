@@ -11,10 +11,11 @@ namespace GestionInventario
             Console.WriteLine("¡Hola! ¡Sea bienvenido al sistema de gestión de inventario!");
 
             bool continuar = true;
+            bool hayProductos = false;
 
             while (continuar)
             {
-                Console.WriteLine("Por favor, seleccione una de nuestras opciones:");
+                Console.WriteLine("\nPor favor, seleccione una de nuestras opciones:");
                 Console.WriteLine("  1- Agregar productos al inventario.");
                 Console.WriteLine("  2- Filtrar y mostrar productos por precio mínimo.");
                 Console.WriteLine("  3- Actualizar el precio de un producto registrado.");
@@ -24,13 +25,13 @@ namespace GestionInventario
                 Console.WriteLine("  7- Salir del sistema.");
                 Console.WriteLine();
 
-                Console.Write("\nPor favor, ingrese la opcion de su preferencia: ");
+                Console.Write("\nPor favor, ingrese la opción de su preferencia: ");
                 string opcion = Console.ReadLine();
 
                 switch (opcion)
                 {
                     case "1":
-                        Console.Write("\n¿Cuantos productos desea ingresar al inventario? ");
+                        Console.Write("\n¿Cuántos productos desea ingresar al inventario? ");
                         if (int.TryParse(Console.ReadLine(), out int cantidad) && cantidad > 0)
                         {
                             for (int i = 0; i < cantidad; i++)
@@ -41,7 +42,7 @@ namespace GestionInventario
                                 string nombre = Console.ReadLine();
                                 while (string.IsNullOrWhiteSpace(nombre))
                                 {
-                                    Console.Write("¡Hey! ¡ERROR! El nombre no puede estar vacío. Por favor, ingrese el nombre: ");
+                                    Console.Write("¡Hey! ¡ERROR! El nombre no puede estar vacio. Por favor, ingrese el nombre: ");
                                     nombre = Console.ReadLine();
                                 }
 
@@ -55,84 +56,121 @@ namespace GestionInventario
                                 Producto producto = new Producto(nombre, precio);
                                 inventario.AgregarProducto(producto);
                             }
+
+                            hayProductos = true; //  Hay productos disponibles productos en el inventariooo
                         }
                         else
                         {
-                            Console.WriteLine("¡Hey! ¡ERROR! Cantidad invalida. Por favor, ingrese un numero entero positivo.");
+                            Console.WriteLine("¡Hey! ¡ERROR! Cantidad inválida. Por favor, ingrese un número entero positivo.");
                         }
                         break;
 
                     case "2":
-                        Console.Write("\n¡Hey! Ingrese el precio minimo para filtrar los productos: ");
-                        decimal precioMinimo;
-                        while (!decimal.TryParse(Console.ReadLine(), out precioMinimo) || precioMinimo < 0)
+                        if (hayProductos)
                         {
-                            Console.Write("¡HEY! ¡ERROR! Precio minimo invalido. Por favor, ingrese un valor positivo: ");
+                            Console.Write("\nIngrese el precio mínimo para filtrar los productos: ");
+                            decimal precioMinimo;
+                            while (!decimal.TryParse(Console.ReadLine(), out precioMinimo) || precioMinimo < 0)
+                            {
+                                Console.Write("¡HEY! ¡ERROR! Precio minimo invalido. Por favor, ingrese un valor positivo: ");
+                            }
+
+                            var productosFiltrados = inventario.FiltrarYOrdenarProductos(precioMinimo);
+
+                            Console.WriteLine("\nProductos filtrados y ordenados:");
+                            foreach (var producto in productosFiltrados)
+                            {
+                                producto.MostrarInformacion();
+                            }
                         }
-
-                        var productosFiltrados = inventario.FiltrarYOrdenarProductos(precioMinimo);
-
-                        Console.WriteLine("\nProductos filtrados y ordenados:");
-                        foreach (var producto in productosFiltrados)
+                        else
                         {
-                            producto.MostrarInformacion();
+                            Console.WriteLine("¡HEY! No hay productos en el inventario. Agregue productos antes de usar esta opcion.");
                         }
                         break;
 
                     case "3":
-                        string opcionActualizar;
-                        do
+                        if (hayProductos)
                         {
-                            Console.Write("\n¿Desea actualizar el precio de un producto? (s/n): ");
-                            opcionActualizar = Console.ReadLine().ToLower();
-                            if (opcionActualizar == "s")
+                            string opcionActualizar;
+                            do
                             {
-                                Console.Write("Ingrese el nombre del producto a actualizar: ");
-                                string nombreActualizar = Console.ReadLine();
-                                Console.Write("Ingrese el nuevo precio: ");
-                                decimal nuevoPrecio;
-                                while (!decimal.TryParse(Console.ReadLine(), out nuevoPrecio) || nuevoPrecio <= 0)
+                                Console.Write("\n¿Desea actualizar el precio de un producto? (s/n): ");
+                                opcionActualizar = Console.ReadLine().ToLower();
+                                if (opcionActualizar == "s")
                                 {
-                                    Console.Write("¡HEY! ¡ERROR! Precio invalido. Por favor, ingrese un precio positivo: ");
+                                    Console.Write("Ingrese el nombre del producto a actualizar: ");
+                                    string nombreActualizar = Console.ReadLine();
+                                    Console.Write("Ingrese el nuevo precio: ");
+                                    decimal nuevoPrecio;
+                                    while (!decimal.TryParse(Console.ReadLine(), out nuevoPrecio) || nuevoPrecio <= 0)
+                                    {
+                                        Console.Write("¡HEY! ¡ERROR! Precio invalido. Por favor, ingrese un precio positivo: ");
+                                    }
+                                    inventario.ActualizarPrecio(nombreActualizar, nuevoPrecio);
                                 }
-                                inventario.ActualizarPrecio(nombreActualizar, nuevoPrecio);
-                            }
-                        } while (opcionActualizar == "s");
+                            } while (opcionActualizar == "s");
+                        }
+                        else
+                        {
+                            Console.WriteLine("¡HEY! No hay productos en el inventario. Agregue productos antes de usar esta opcion.");
+                        }
                         break;
 
                     case "4":
-                        string opcionEliminar;
-                        do
+                        if (hayProductos)
                         {
-                            Console.Write("\n¿Desea eliminar un producto? (s/n): ");
-                            opcionEliminar = Console.ReadLine().ToLower();
-                            if (opcionEliminar == "s")
+                            string opcionEliminar;
+                            do
                             {
-                                Console.Write("Ingrese el nombre del producto a eliminar: ");
-                                string nombreEliminar = Console.ReadLine();
-                                inventario.EliminarProducto(nombreEliminar);
-                            }
-                        } while (opcionEliminar == "s");
+                                Console.Write("\n¿Desea eliminar un producto? (s/n): ");
+                                opcionEliminar = Console.ReadLine().ToLower();
+                                if (opcionEliminar == "s")
+                                {
+                                    Console.Write("Favor, Ingrese el nombre del producto a eliminar: ");
+                                    string nombreEliminar = Console.ReadLine();
+                                    inventario.EliminarProducto(nombreEliminar);
+                                }
+                            } while (opcionEliminar == "s");
+                        }
+                        else
+                        {
+                            Console.WriteLine("¡HEY! No hay productos en el inventario. Agregue productos antes de usar esta opcion.");
+                        }
                         break;
 
                     case "5":
-                        Console.WriteLine("\nConteo y agrupación de productos por rango de precio:");
-                        inventario.ContarYAgruparProductos();
+                        if (hayProductos)
+                        {
+                            Console.WriteLine("\nConteo y agrupacion de productos por rango de precio:");
+                            inventario.ContarYAgruparProductos();
+                        }
+                        else
+                        {
+                            Console.WriteLine("¡HEY! No hay productos en el inventario. Agregue productos antes de usar esta opcion.");
+                        }
                         break;
 
                     case "6":
-                        Console.WriteLine("\nGenerando reporte del inventario:");
-                        inventario.GenerarReporte();
+                        if (hayProductos)
+                        {
+                            Console.WriteLine("\nGenerando reporte del inventario:");
+                            inventario.GenerarReporte();
+                        }
+                        else
+                        {
+                            Console.WriteLine("¡HEY! No hay productos en el inventario. Agregue productos antes de usar esta opcion.");
+                        }
                         break;
 
                     case "7":
                         continuar = false;
                         Console.WriteLine("Gracias por usar el sistema de gestión de inventario. ¡Chao!");
-                        Console.WriteLine("El sistema se ha cerrado");
+                        Console.WriteLine("El sistema se ha cerrado.");
                         break;
 
                     default:
-                        Console.WriteLine("¡HEY! ¡ERROR! Opción invalida. Por favor, seleccione una opción valida.");
+                        Console.WriteLine("¡HEY! ¡ERROR! Opcion invalida. Por favor, seleccione una opcion valida.");
                         break;
                 }
             }
