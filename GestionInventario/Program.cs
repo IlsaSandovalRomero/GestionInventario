@@ -38,7 +38,7 @@ namespace GestionInventario
             Console.WriteLine($"\nProductos filtrados y ordenados: ");
             foreach (var producto in productosFiltrados)
             {
-                Console.Write($"Nombre del producto: {producto.Nombre}, Precio: {producto.Precio}");
+                Console.Write($"Nombre del producto: {producto.Nombre}, Precio: {producto.Precio}   ");
             }
 
         }
