@@ -122,6 +122,13 @@ namespace GestionInventario
 
             Console.WriteLine("\nGenerando reporte del inventario:");
             inventario.GenerarReporte();
+
+            Console.WriteLine();
+            Console.WriteLine("El sistema se está cerrando.");
+            Console.WriteLine("Muchas gracias por utilizar este sistema de control de inventario.");
+            Console.WriteLine("¡Regrese pronto!");
+            Console.WriteLine("Chao.");
         }
+
     }
 }
