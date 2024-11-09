@@ -76,7 +76,11 @@ namespace GestionInventario
                     inventario.EliminarProducto(nombreEliminar);
                 }
 
-                
+                Console.WriteLine("\nConteo y agrupación de productos por rango de precio:");
+                inventario.ContarYAgruparProductos();
+
+                Console.WriteLine("\nGenerando reporte del inventario:");
+                inventario.GenerarReporte();
             }
             else
             {
